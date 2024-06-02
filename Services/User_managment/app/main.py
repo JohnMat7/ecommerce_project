@@ -2,9 +2,8 @@ import uvicorn
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-
-from . import models, schemas, crud, auth
-from .database import SessionLocal, engine
+import models, schemas, crud, auth
+from database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -48,4 +47,4 @@ async def read_users_me(current_user: schemas.User = Depends(auth.get_current_us
 
 
 if __name__ == "__main__":
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
